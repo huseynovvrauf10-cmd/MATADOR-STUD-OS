@@ -3,33 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Matador Social | My Space</title>
+    <title>Matador Social | Mübariz Ruh</title>
     <style>
-        body { background-color: #050505; color: white; font-family: sans-serif; margin: 0; padding-bottom: 80px; }
-        .navbar { background: #111; padding: 15px; text-align: center; border-bottom: 1px solid #333; position: sticky; top: 0; z-index: 100; }
+        body { background-color: #050505; color: white; font-family: sans-serif; margin: 0; padding-bottom: 80px; overflow-x: hidden; }
+        .navbar { background: #111; padding: 15px; text-align: center; border-bottom: 1px solid #333; position: sticky; top: 0; z-index: 1000; }
         .logo { font-weight: bold; color: #ff0000; letter-spacing: 2px; font-size: 1.4rem; }
         
-        .container { max-width: 500px; margin: auto; padding: 10px; }
-        
+        .container { max-width: 500px; margin: auto; padding: 10px; display: block; }
+        #profile-page { display: none; max-width: 500px; margin: auto; padding: 20px; text-align: center; }
+
+        /* Profil Detayları */
+        .profile-pic { width: 100px; height: 100px; border-radius: 50%; border: 3px solid #ff0000; margin: 20px auto; background: #222; display: flex; align-items: center; justify-content: center; font-size: 3rem; }
+        .stats { display: flex; justify-content: center; gap: 30px; margin: 20px 0; }
+        .stat-item b { display: block; font-size: 1.2rem; }
+        .bio { font-size: 0.9rem; color: #ccc; line-height: 1.5; padding: 0 20px; }
+
         /* Post Alanı */
         .post { background: #111; border-radius: 12px; margin-bottom: 20px; border: 1px solid #222; overflow: hidden; animation: fadeIn 0.5s; }
         .post-header { padding: 12px; display: flex; align-items: center; gap: 10px; font-weight: bold; }
-        .user-avatar { width: 32px; height: 32px; border-radius: 50%; background: #ff0000; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; }
-        .post-img { width: 100%; aspect-ratio: 1/1; background: #1a1a1a; display: flex; align-items: center; justify-content: center; text-align: center; padding: 20px; box-sizing: border-box; font-size: 1.2rem; border-top: 1px solid #222; border-bottom: 1px solid #222; }
+        .user-avatar { width: 32px; height: 32px; border-radius: 50%; background: #ff0000; display: flex; align-items: center; justify-content: center; }
+        .post-img { width: 100%; min-height: 150px; background: #1a1a1a; display: flex; align-items: center; justify-content: center; text-align: center; padding: 20px; box-sizing: border-box; }
         .post-footer { padding: 12px; }
-        .actions { display: flex; gap: 15px; font-size: 1.5rem; margin-bottom: 8px; }
         
-        /* İnteraktif Butonlar */
-        .like-btn { cursor: pointer; transition: 0.2s; }
-        .like-btn.active { color: #ff0000; transform: scale(1.2); }
-
-        /* Yeni Post Ekleme Paneli */
         .add-post-box { background: #111; padding: 15px; border-radius: 12px; margin-bottom: 20px; border: 1px solid #ff0000; }
         textarea { width: 100%; background: #000; border: 1px solid #333; color: white; padding: 10px; border-radius: 8px; resize: none; box-sizing: border-box; }
-        .post-btn { background: #ff0000; color: white; border: none; padding: 10px 20px; border-radius: 20px; margin-top: 10px; font-weight: bold; cursor: pointer; width: 100%; }
+        .post-btn { background: #ff0000; color: white; border: none; padding: 10px 20px; border-radius: 20px; margin-top: 10px; font-weight: bold; width: 100%; cursor: pointer; }
 
-        .bottom-nav { position: fixed; bottom: 0; width: 100%; background: #000; display: flex; justify-content: space-around; padding: 15px 0; border-top: 1px solid #222; }
-        
+        .bottom-nav { position: fixed; bottom: 0; width: 100%; background: #000; display: flex; justify-content: space-around; padding: 15px 0; border-top: 1px solid #222; z-index: 1000; }
+        .nav-item { font-size: 1.5rem; cursor: pointer; opacity: 0.6; transition: 0.3s; }
+        .nav-item.active { opacity: 1; color: #ff0000; }
+
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
@@ -37,77 +40,70 @@
 
     <div class="navbar">
         <div class="logo">MATADOR</div>
-        <div style="font-size: 0.7rem; color: #888;">Admin Panel: Aktiv</div>
     </div>
 
-    <div class="container">
+    <div id="home-page" class="container">
         <div class="add-post-box">
             <textarea id="postInput" rows="2" placeholder="Nə düşünürsən, Matador?"></textarea>
             <button class="post-btn" onclick="addPost()">Paylaş</button>
         </div>
-
         <div id="feed">
             <div class="post">
-                <div class="post-header">
-                    <div class="user-avatar">M</div>
-                    <span>matador_admin</span>
-                </div>
-                <div class="post-img">Xoş gəldin! İlk postunu yuxarıdan paylaşa bilərsən. 🚀</div>
-                <div class="post-footer">
-                    <div class="actions">
-                        <span class="like-btn" onclick="toggleLike(this)">❤</span>
-                        <span>💬</span>
-                    </div>
-                </div>
+                <div class="post-header"><div class="user-avatar">M</div><span>matador_admin</span></div>
+                <div class="post-img">Uğura gedən yol çətinliklərdən keçir. Şah-Mat üçün davam! 🇦🇿🚀</div>
             </div>
         </div>
     </div>
 
+    <div id="profile-page">
+        <div class="profile-pic">M</div>
+        <h2>matador_dev</h2>
+        <div style="color: #ff0000; margin-bottom: 10px;">Təsisçi & Baş Memar</div>
+        <div class="stats">
+            <div class="stat-item"><b>1</b><span>Post</span></div>
+            <div class="stat-item"><b>1.2K</b><span>İzləyici</span></div>
+            <div class="stat-item"><b>150</b><span>Təqib</span></div>
+        </div>
+        <div class="bio">
+            "Mən heç vaxt uduzmuram. Ya qazanıram, ya da öyrənirəm. Allahın izni ilə Azərbaycanın yeni rəqəmsal tarixini yazırıq." 🇦🇿🔥
+        </div>
+        <button class="post-btn" style="width: auto; padding: 10px 40px; margin-top: 20px;">Profili Redaktə Et</button>
+    </div>
+
     <div class="bottom-nav">
-        <span>🏠</span>
-        <span>🔍</span>
-        <span>➕</span>
-        <span>👤</span>
+        <span class="nav-item active" id="home-icon" onclick="showPage('home')">🏠</span>
+        <span class="nav-item">🔍</span>
+        <span class="nav-item">➕</span>
+        <span class="nav-item" id="profile-icon" onclick="showPage('profile')">👤</span>
     </div>
 
     <script>
-        // BEĞENİ FONKSİYONU
-        function toggleLike(btn) {
-            btn.classList.toggle('active');
+        function showPage(page) {
+            if(page === 'home') {
+                document.getElementById('home-page').style.display = 'block';
+                document.getElementById('profile-page').style.display = 'none';
+                document.getElementById('home-icon').classList.add('active');
+                document.getElementById('profile-icon').classList.remove('active');
+            } else {
+                document.getElementById('home-page').style.display = 'none';
+                document.getElementById('profile-page').style.display = 'block';
+                document.getElementById('profile-icon').classList.add('active');
+                document.getElementById('home-icon').classList.remove('active');
+            }
         }
 
-        // POST PAYLAŞMA FONKSİYONU
         function addPost() {
             const input = document.getElementById('postInput');
-            const feed = document.getElementById('feed');
-            
-            if (input.value.trim() === "") {
-                alert("Boş paylaşım etmək olmaz!");
-                return;
-            }
-
+            if (input.value.trim() === "") return;
             const newPost = document.createElement('div');
             newPost.className = 'post';
             newPost.innerHTML = `
-                <div class="post-header">
-                    <div class="user-avatar">M</div>
-                    <span>matador_dev</span>
-                </div>
+                <div class="post-header"><div class="user-avatar">M</div><span>matador_dev</span></div>
                 <div class="post-img">${input.value}</div>
-                <div class="post-footer">
-                    <div class="actions">
-                        <span class="like-btn" onclick="toggleLike(this)">❤</span>
-                        <span>💬</span>
-                    </div>
-                    <div style="font-size: 0.8rem; color: #888;">İndi paylaşıldı</div>
-                </div>
             `;
-
-            feed.prepend(newPost); // Yeni postu en üste ekler
-            input.value = ""; // Kutuyu temizler
+            document.getElementById('feed').prepend(newPost);
+            input.value = "";
         }
     </script>
-
 </body>
 </html>
-   
