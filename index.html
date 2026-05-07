@@ -3,41 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Matador Social</title>
+    <title>Matador Social | Resmi Sitesi</title>
+    <meta name="description" content="Matador Social - Disiplin ve vizyonun buluştuğu yeni nesil sosyal ağ.">
+    <meta name="author" content="Matador Studios">
+    
     <style>
-        /* Matador Karanlık Tema */
-        body { background-color: #050505; color: white; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; }
-        
-        /* Üst Menü */
+        body { background-color: #050505; color: white; font-family: sans-serif; margin: 0; padding-bottom: 70px; }
         .navbar { background: #111; padding: 15px; text-align: center; border-bottom: 1px solid #333; position: sticky; top: 0; z-index: 100; }
-        .logo { font-weight: bold; color: #ff0000; letter-spacing: 2px; font-size: 1.2rem; }
-
-        /* Ana İçerik */
-        .container { max-width: 500px; margin: 20px auto; padding: 10px; }
-
+        .logo { font-weight: bold; color: #ff0000; letter-spacing: 2px; font-size: 1.4rem; text-shadow: 0 0 10px rgba(255,0,0,0.3); }
+        
+        .container { max-width: 500px; margin: auto; padding: 10px; }
+        
         /* Hikayeler */
-        .stories { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 10px; margin-bottom: 20px; }
-        .story { min-width: 65px; height: 65px; border-radius: 50%; border: 2px solid #ff0000; background: #222; }
+        .stories { display: flex; gap: 12px; overflow-x: auto; padding: 10px 0; scrollbar-width: none; }
+        .story { min-width: 65px; height: 65px; border-radius: 50%; border: 2px solid #ff0000; background: #222; flex-shrink: 0; }
 
-        /* Paylaşım Kartı */
-        .post { background: #111; border: 1px solid #222; border-radius: 10px; margin-bottom: 20px; }
-        .post-header { padding: 10px; display: flex; align-items: center; gap: 10px; }
-        .user-icon { width: 35px; height: 35px; border-radius: 50%; background: #333; }
-        .post-img { width: 100%; height: 300px; background: #1a1a1a; display: flex; align-items: center; justify-content: center; color: #444; }
-        .post-footer { padding: 15px; }
-        .btn-group { display: flex; gap: 15px; margin-bottom: 10px; font-size: 1.2rem; }
-        .like-btn { color: #ff0000; cursor: pointer; }
+        /* Gönderi Tasarımı */
+        .post { background: #111; border-radius: 12px; margin-bottom: 20px; border: 1px solid #222; overflow: hidden; }
+        .post-header { padding: 12px; display: flex; align-items: center; gap: 10px; font-weight: bold; }
+        .user-avatar { width: 32px; height: 32px; border-radius: 50%; background: #ff0000; }
+        .post-img { width: 100%; aspect-ratio: 1/1; background: linear-gradient(45deg, #111, #222); display: flex; align-items: center; justify-content: center; color: #444; font-size: 0.9rem; }
+        .post-footer { padding: 12px; }
+        .actions { display: flex; gap: 15px; font-size: 1.4rem; margin-bottom: 8px; }
+        .like-btn:active { transform: scale(1.2); color: #ff0000; transition: 0.1s; }
 
-        /* Alt Menü (Mobil için) */
-        .bottom-nav { position: fixed; bottom: 0; width: 100%; background: #111; display: flex; justify-content: space-around; padding: 15px 0; border-top: 1px solid #333; }
-        .nav-item { color: #888; font-size: 1.2rem; cursor: pointer; }
-        .active { color: white; }
+        /* Alt Menü */
+        .bottom-nav { position: fixed; bottom: 0; width: 100%; background: #000; display: flex; justify-content: space-around; padding: 15px 0; border-top: 1px solid #222; }
+        .nav-item { font-size: 1.5rem; cursor: pointer; filter: grayscale(1); }
+        .nav-item.active { filter: grayscale(0); }
+
+        /* Login Butonu (Deneme) */
+        .login-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 1000; justify-content: center; align-items: center; flex-direction: column; }
     </style>
 </head>
 <body>
 
     <div class="navbar">
-        <div class="logo">MATADOR SOCIAL</div>
+        <div class="logo">MATADOR</div>
     </div>
 
     <div class="container">
@@ -51,20 +53,20 @@
 
         <div class="post">
             <div class="post-header">
-                <div class="user-icon"></div>
-                <span><b>matador_dev</b></span>
+                <div class="user-avatar"></div>
+                <span>matador_studios</span>
             </div>
             <div class="post-img">
-                [GÖRSEL BURADA OLACAK]
+                🚀 İlk adım atıldı. #MatadorSocial
             </div>
             <div class="post-footer">
-                <div class="btn-group">
-                    <span class="like-btn">❤</span>
+                <div class="actions">
+                    <span class="like-btn" onclick="this.style.color='#ff0000'">❤</span>
                     <span>💬</span>
                     <span>✈</span>
                 </div>
-                <div><b>1.245 Beğeni</b></div>
-                <div style="margin-top: 5px;"><b>matador_dev</b> Hedef şah-mat! Sessizce çalışmaya devam...</div>
+                <div><b>2.500 Beğeni</b></div>
+                <div style="margin-top: 5px;">Karanlıkta çalış, zirvede parla.</div>
             </div>
         </div>
     </div>
@@ -72,7 +74,7 @@
     <div class="bottom-nav">
         <span class="nav-item active">🏠</span>
         <span class="nav-item">🔍</span>
-        <span class="nav-item">➕</span>
+        <span class="nav-item" onclick="alert('Matador Paylaşım Sistemi Çok Yakında!')">➕</span>
         <span class="nav-item">👤</span>
     </div>
 
