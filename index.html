@@ -3,183 +3,384 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Matador Social | Imperial</title>
+    <title>MATADOR SOCIAL | ULTRA v5.0</title>
     <style>
-        :root { --red: #ff0000; --bg: #000; --card: #111; --text: #fff; --gray: #888; }
-        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        body { background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; margin: 0; padding-bottom: 70px; }
+        :root {
+            --red: #ff0000;
+            --dark-red: #8b0000;
+            --bg: #050505;
+            --card: #121212;
+            --input: #1a1a1a;
+            --text: #ffffff;
+            --gray: #b0b0b0;
+            --accent: #ff3232;
+        }
+
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; outline: none; }
         
-        /* Navbar */
-        .header { background: rgba(17, 17, 17, 0.95); padding: 15px; text-align: center; border-bottom: 1px solid #222; position: sticky; top: 0; z-index: 1000; backdrop-filter: blur(10px); }
-        .logo { font-weight: 900; color: var(--red); font-size: 1.7rem; letter-spacing: 4px; text-shadow: 0 0 10px rgba(255,0,0,0.3); }
+        body { 
+            background: var(--bg); 
+            color: var(--text); 
+            font-family: 'Inter', -apple-system, sans-serif; 
+            margin: 0; 
+            padding-bottom: 90px; 
+            overflow-x: hidden;
+        }
 
-        /* Stories */
-        .story-container { display: flex; gap: 12px; padding: 15px; overflow-x: auto; scrollbar-width: none; border-bottom: 1px solid #111; }
-        .story-container::-webkit-scrollbar { display: none; }
-        .story { min-width: 65px; height: 65px; border-radius: 50%; border: 2px solid var(--red); background: #222; padding: 2px; flex-shrink: 0; }
-        .story-inner { width: 100%; height: 100%; border-radius: 50%; background: #333; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; }
+        /* Üst Header */
+        .header {
+            background: rgba(0, 0, 0, 0.85);
+            padding: 18px;
+            text-align: center;
+            border-bottom: 1px solid #222;
+            position: sticky;
+            top: 0;
+            z-index: 2000;
+            backdrop-filter: blur(15px);
+        }
 
-        .container { max-width: 500px; margin: auto; padding: 10px; }
-        .page { display: none; animation: slideIn 0.3s ease; }
+        .logo {
+            font-weight: 900;
+            color: var(--red);
+            font-size: 1.9rem;
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            text-shadow: 0 0 15px rgba(255, 0, 0, 0.4);
+        }
+
+        /* Hikaye Alanı (Stories) */
+        .story-bar {
+            display: flex;
+            gap: 15px;
+            padding: 20px 15px;
+            overflow-x: auto;
+            scrollbar-width: none;
+            background: linear-gradient(to bottom, #0a0a0a, var(--bg));
+        }
+        .story-bar::-webkit-scrollbar { display: none; }
+
+        .story-circle {
+            min-width: 75px;
+            height: 75px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #ff0000, #ff8000);
+            padding: 3px;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        .story-circle:active { transform: scale(0.9); }
+        .story-img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: #222;
+            border: 2px solid #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+        }
+
+        .container { max-width: 600px; margin: auto; padding: 12px; }
+        .page { display: none; animation: pageFade 0.5s ease; }
         .active-page { display: block; }
 
-        /* Paylaşım Kutusu */
-        .add-card { background: var(--card); border-radius: 20px; padding: 15px; margin-bottom: 20px; border: 1px solid #222; }
-        textarea { width: 100%; background: #000; border: 1px solid #333; color: #fff; padding: 12px; border-radius: 12px; resize: none; font-size: 1rem; margin-bottom: 10px; }
-        .input-alt { width: 100%; background: #000; border: 1px solid #222; color: #fff; padding: 8px; border-radius: 8px; font-size: 0.8rem; margin-bottom: 10px; }
-        .btn-main { background: var(--red); color: #fff; border: none; padding: 12px; border-radius: 30px; width: 100%; font-weight: bold; cursor: pointer; transition: 0.2s; }
-        .btn-main:active { transform: scale(0.98); }
+        /* Paylaşım Paneli */
+        .create-post {
+            background: var(--card);
+            border-radius: 24px;
+            padding: 20px;
+            border: 1px solid #222;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        textarea {
+            width: 100%;
+            background: var(--input);
+            border: 1px solid #333;
+            color: #fff;
+            padding: 16px;
+            border-radius: 16px;
+            resize: none;
+            font-size: 1.05rem;
+            margin-bottom: 15px;
+            transition: 0.3s;
+        }
+        textarea:focus { border-color: var(--red); box-shadow: 0 0 10px rgba(255,0,0,0.1); }
+        
+        .url-input {
+            width: 100%;
+            background: var(--input);
+            border: 1px solid #222;
+            color: #fff;
+            padding: 12px;
+            border-radius: 12px;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+
+        .share-btn {
+            background: linear-gradient(90deg, var(--dark-red), var(--red));
+            color: white;
+            border: none;
+            padding: 16px;
+            border-radius: 40px;
+            width: 100%;
+            font-weight: 800;
+            cursor: pointer;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            box-shadow: 0 5px 20px rgba(255,0,0,0.3);
+            transition: 0.3s;
+        }
+        .share-btn:active { transform: scale(0.97); }
 
         /* Post Tasarımı */
-        .post { background: var(--card); border-radius: 20px; margin-bottom: 20px; border: 1px solid #222; overflow: hidden; }
-        .post-top { padding: 12px; display: flex; align-items: center; gap: 10px; }
-        .user-icon { width: 35px; height: 35px; background: var(--red); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; }
-        .post-img { width: 100%; max-height: 450px; object-fit: cover; background: #0a0a0a; border-top: 1px solid #222; border-bottom: 1px solid #222; }
-        .post-txt { padding: 15px; font-size: 1rem; line-height: 1.5; }
-        .post-bot { padding: 12px; display: flex; align-items: center; gap: 15px; border-top: 1px solid #1a1a1a; }
-        .heart { font-size: 1.5rem; cursor: pointer; color: #555; transition: 0.2s; }
-        .heart.active { color: var(--red); transform: scale(1.1); }
-        .like-count { font-weight: bold; font-size: 0.9rem; }
+        .post {
+            background: var(--card);
+            border-radius: 24px;
+            margin-bottom: 25px;
+            border: 1px solid #1a1a1a;
+            overflow: hidden;
+            animation: slideUp 0.4s ease;
+        }
+        .post-header { padding: 15px; display: flex; align-items: center; gap: 12px; }
+        .user-avatar {
+            width: 45px;
+            height: 45px;
+            background: var(--red);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            box-shadow: 0 0 10px rgba(255,0,0,0.3);
+        }
+        .post-content { padding: 0 18px 15px 18px; font-size: 1.1rem; line-height: 1.6; color: #f0f0f0; }
+        
+        /* Video & Resim Container */
+        .media-container { width: 100%; background: #000; display: block; border-top: 1px solid #222; border-bottom: 1px solid #222; }
+        .media-container img, .media-container video { width: 100%; max-height: 550px; object-fit: cover; }
+        .media-container iframe { width: 100%; height: 350px; border: none; }
 
-        /* Profil Sayfası */
-        .p-info { text-align: center; padding: 30px 10px; }
-        .p-avatar { width: 110px; height: 110px; border-radius: 50%; background: var(--red); margin: 0 auto 15px; display: flex; align-items: center; justify-content: center; font-size: 3rem; border: 4px solid #111; box-shadow: 0 0 25px rgba(255,0,0,0.2); }
-        .p-stat-box { display: flex; justify-content: space-around; margin: 25px 0; border-top: 1px solid #222; border-bottom: 1px solid #222; padding: 15px 0; }
+        .post-footer { padding: 15px 20px; background: #161616; }
+        .action-btns { display: flex; align-items: center; gap: 25px; margin-bottom: 15px; }
+        .btn-like { font-size: 1.9rem; cursor: pointer; transition: 0.3s; color: #444; }
+        .btn-like.active { color: var(--red); transform: scale(1.1); filter: drop-shadow(0 0 5px rgba(255,0,0,0.5)); }
+        
+        .like-text { font-weight: 700; font-size: 1rem; color: #fff; }
 
-        /* Navigasyon */
-        .tab-bar { position: fixed; bottom: 0; width: 100%; background: rgba(0,0,0,0.9); display: flex; justify-content: space-around; padding: 15px 0; border-top: 1px solid #222; backdrop-filter: blur(15px); }
-        .tab { font-size: 1.6rem; cursor: pointer; opacity: 0.4; transition: 0.3s; }
-        .tab.active { opacity: 1; color: var(--red); }
+        /* Şərhlər */
+        .comments-section { border-top: 1px solid #222; padding-top: 15px; margin-top: 10px; }
+        .comment { font-size: 0.95rem; margin-bottom: 8px; border-left: 2px solid var(--red); padding-left: 10px; }
+        .comment b { color: var(--red); margin-right: 5px; }
+        
+        .comment-input-area { display: flex; gap: 10px; margin-top: 15px; }
+        .c-input { 
+            flex: 1; background: #000; border: 1px solid #333; color: #fff; 
+            border-radius: 30px; padding: 10px 18px; font-size: 0.9rem; 
+        }
 
-        @keyframes slideIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        /* Profil Səhifəsi */
+        .profile-card { text-align: center; padding: 50px 20px; }
+        .large-avatar {
+            width: 130px; height: 130px; background: var(--red); border-radius: 50%;
+            margin: 0 auto 20px; display: flex; align-items: center; justify-content: center;
+            font-size: 4rem; border: 5px solid #1a1a1a; box-shadow: 0 0 40px rgba(255,0,0,0.4);
+        }
+        .stats { 
+            display: grid; grid-template-columns: repeat(3, 1fr); 
+            margin: 30px 0; border-top: 1px solid #222; border-bottom: 1px solid #222; padding: 25px 0; 
+        }
+        .stat-box b { font-size: 1.4rem; display: block; color: var(--red); }
+        .stat-box span { color: var(--gray); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; }
+
+        /* Alt Navigasyon */
+        .bottom-tabs {
+            position: fixed; bottom: 0; width: 100%;
+            background: rgba(0,0,0,0.95); display: flex; justify-content: space-around;
+            padding: 20px 0; border-top: 1px solid #222; backdrop-filter: blur(20px);
+            z-index: 2000;
+        }
+        .tab-item { font-size: 1.8rem; cursor: pointer; opacity: 0.3; transition: 0.4s; }
+        .tab-item.active { opacity: 1; color: var(--red); transform: translateY(-8px); }
+
+        /* Animasyonlar */
+        @keyframes pageFade { from { opacity: 0; filter: blur(5px); } to { opacity: 1; filter: blur(0); } }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body>
 
     <div class="header"><div class="logo">MATADOR</div></div>
 
-    <div id="home" class="page active-page">
-        <div class="story-container">
-            <div class="story"><div class="story-inner">🇦🇿</div></div>
-            <div class="story"><div class="story-inner">🦁</div></div>
-            <div class="story"><div class="story-inner">🔥</div></div>
-            <div class="story"><div class="story-inner">💎</div></div>
-            <div class="story"><div class="story-inner">🥊</div></div>
+    <div id="home-page" class="page active-page">
+        <div class="story-bar">
+            <div class="story-circle"><div class="story-img">🇦🇿</div></div>
+            <div class="story-circle"><div class="story-img">🦁</div></div>
+            <div class="story-circle"><div class="story-img">🔥</div></div>
+            <div class="story-circle"><div class="story-img">💰</div></div>
+            <div class="story-circle"><div class="story-img">🥊</div></div>
+            <div class="story-circle"><div class="story-img">💎</div></div>
         </div>
         
         <div class="container">
-            <div class="add-card">
-                <textarea id="tInput" placeholder="Nə baş verir, Matador?"></textarea>
-                <input type="text" id="iInput" class="input-alt" placeholder="Şəkil linki əlavə et (məcburi deyil)">
-                <button class="btn-main" onclick="sharePost()">Paylaş</button>
+            <div class="create-post">
+                <textarea id="pText" placeholder="Nə baş verir, Matador?"></textarea>
+                <input type="text" id="pMedia" class="url-input" placeholder="Video (.mp4), YouTube və ya Şəkil linki...">
+                <button class="share-btn" onclick="publish()">Paylaş</button>
             </div>
-            <div id="main-feed"></div>
+            <div id="feed-container"></div>
         </div>
     </div>
 
-    <div id="profile" class="page">
-        <div class="container">
-            <div class="p-info">
-                <div class="p-avatar">M</div>
-                <h2 style="margin:5px 0;">matador_dev</h2>
-                <p style="color:var(--red); font-weight: bold; margin-top:0;">Founder & Architect</p>
-                <p style="color: var(--gray); font-size: 0.95rem; line-height: 1.4;">"Mən uduzmuram, ya qazanıram, ya da öyrənirəm. Allahın izni ilə Azərbaycanın yeni rəqəmsal tarixini yazırıq." 🇦🇿🚀</p>
-                
-                <div class="p-stat-box">
-                    <div><b>12</b><br><small style="color:var(--gray)">Post</small></div>
-                    <div><b>4.5K</b><br><small style="color:var(--gray)">İzləyici</small></div>
-                    <div><b>180</b><br><small style="color:var(--gray)">Təqib</small></div>
-                </div>
-                <button class="btn-main" style="background:#222; border:1px solid #444;">Profili Redaktə Et</button>
+    <div id="profile-page" class="page">
+        <div class="profile-card">
+            <div class="large-avatar">M</div>
+            <h1 style="margin:0;">matador_dev</h1>
+            <p style="color:var(--red); font-weight: 900; letter-spacing: 2px; margin-top: 5px;">ELITE DEVELOPER</p>
+            <p style="color: #aaa; line-height: 1.6; padding: 0 40px; font-style: italic;">
+                "Uğur təsadüf deyil, zəhmətin bəhrəsidir. Allah imtahan edər, mən təkrar dənəyərəm." 🇦🇿
+            </p>
+            
+            <div class="stats">
+                <div class="stat-box"><b id="count-posts">0</b><span>Postlar</span></div>
+                <div class="stat-box"><b>12.5K</b><span>İzləyici</span></div>
+                <div class="stat-box"><b>240</b><span>Təqib</span></div>
             </div>
+            
+            <button class="share-btn" style="width: 85%; background: #1a1a1a; border: 1px solid #333;">Profili Redaktə Et</button>
         </div>
     </div>
 
-    <div class="tab-bar">
-        <span class="tab active" id="t-home" onclick="nav('home')">🏠</span>
-        <span class="tab">🔍</span>
-        <span class="tab">➕</span>
-        <span class="tab" id="t-profile" onclick="nav('profile')">👤</span>
+    <div class="bottom-tabs">
+        <span class="tab-item active" id="tab-home" onclick="showPage('home-page')">🏠</span>
+        <span class="tab-item">🔍</span>
+        <span class="tab-item" style="color:white; opacity: 1;">➕</span>
+        <span class="tab-item" id="tab-profile" onclick="showPage('profile-page')">👤</span>
     </div>
 
     <script>
-        // Sayfa Yönetimi
-        function nav(id) {
+        // Səhifə idarəçisi
+        function showPage(pageId) {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
-            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-            document.getElementById(id).classList.add('active-page');
-            document.getElementById('t-' + id).classList.add('active');
-            window.scrollTo(0,0);
+            document.querySelectorAll('.tab-item').forEach(t => t.classList.remove('active'));
+            document.getElementById(pageId).classList.add('active-page');
+            document.getElementById('tab-' + pageId.split('-')[0]).classList.add('active');
+            window.scrollTo({top: 0, behavior: 'smooth'});
         }
 
-        // Post Paylaşma
-        function sharePost() {
-            const t = document.getElementById('tInput');
-            const i = document.getElementById('iInput');
-            if(!t.value && !i.value) return;
+        // Məlumat bazasını yüklə
+        window.onload = function() {
+            refreshFeed();
+        };
 
-            const post = {
+        // Yeni Post Paylaş
+        function publish() {
+            const txt = document.getElementById('pText');
+            const med = document.getElementById('pMedia');
+            if(!txt.value && !med.value) return;
+
+            const postObj = {
                 id: Date.now(),
-                text: t.value,
-                img: i.value,
+                author: "matador_dev",
+                text: txt.value,
+                mediaUrl: med.value,
                 likes: 0,
-                isLiked: false
+                hasLiked: false,
+                comments: []
             };
 
-            let posts = JSON.parse(localStorage.getItem('mt_posts') || '[]');
-            posts.unshift(post);
-            localStorage.setItem('mt_posts', JSON.stringify(posts));
-            
-            t.value = ""; i.value = "";
-            loadFeed();
+            let db = JSON.parse(localStorage.getItem('matador_ultra_db') || '[]');
+            db.unshift(postObj);
+            localStorage.setItem('matador_ultra_db', JSON.stringify(db));
+
+            txt.value = ""; med.value = "";
+            refreshFeed();
         }
 
-        // Feed Yükleme
-        function loadFeed() {
-            const feed = document.getElementById('main-feed');
-            const posts = JSON.parse(localStorage.getItem('mt_posts') || '[]');
-            feed.innerHTML = "";
+        // Akışı Yenilə
+        function refreshFeed() {
+            const container = document.getElementById('feed-container');
+            const db = JSON.parse(localStorage.getItem('matador_ultra_db') || '[]');
+            document.getElementById('count-posts').innerText = db.length;
+            container.innerHTML = "";
 
-            posts.forEach(p => {
-                const imgPart = p.img ? `<img src="${p.img}" class="post-img" onerror="this.style.display='none'">` : '';
-                const likedClass = p.isLiked ? 'active' : '';
-                
-                feed.innerHTML += `
+            db.forEach(post => {
+                let mediaHtml = "";
+                if(post.mediaUrl) {
+                    const url = post.mediaUrl.toLowerCase();
+                    if(url.includes('mp4') || url.includes('mov') || url.includes('webm')) {
+                        mediaHtml = `<div class="media-container"><video src="${post.mediaUrl}" controls></video></div>`;
+                    } else if(url.includes('youtube.com') || url.includes('youtu.be')) {
+                        let id = url.split('v=')[1] || url.split('/').pop();
+                        mediaHtml = `<div class="media-container"><iframe src="https://www.youtube.com/embed/${id}" allowfullscreen></iframe></div>`;
+                    } else {
+                        mediaHtml = `<div class="media-container"><img src="${post.mediaUrl}" onerror="this.parentElement.style.display='none'"></div>`;
+                    }
+                }
+
+                const likeClass = post.hasLiked ? 'active' : '';
+                const commentList = post.comments.map(c => `<div class="comment"><b>Ziyarətçi:</b> ${c}</div>`).join('');
+
+                container.innerHTML += `
                     <div class="post">
-                        <div class="post-top">
-                            <div class="user-icon">M</div>
-                            <b>matador_dev</b>
+                        <div class="post-header">
+                            <div class="user-avatar">M</div>
+                            <div style="font-weight:900;">${post.author}</div>
                         </div>
-                        <div class="post-txt">${p.text}</div>
-                        ${imgPart}
-                        <div class="post-bot">
-                            <span class="heart ${likedClass}" onclick="handleLike(${p.id})">❤</span>
-                            <span class="like-count" id="count-${p.id}">${p.likes} bəyəni</span>
+                        <div class="post-content">${post.text}</div>
+                        ${mediaHtml}
+                        <div class="post-footer">
+                            <div class="action-btns">
+                                <span class="btn-like ${likeClass}" onclick="toggleLike(${post.id})">❤</span>
+                                <span class="like-text">${post.likes} bəyəni</span>
+                            </div>
+                            <div class="comments-section">
+                                ${commentList}
+                                <div class="comment-input-area">
+                                    <input type="text" class="c-input" id="inp-${post.id}" placeholder="Fikrini bildir...">
+                                    <button onclick="sendComment(${post.id})" style="background:none; border:none; color:var(--red); font-weight:bold; cursor:pointer;">Yaz</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 `;
             });
         }
 
-        // Beğeni Yönetimi
-        function handleLike(id) {
-            let posts = JSON.parse(localStorage.getItem('mt_posts') || '[]');
-            let post = posts.find(x => x.id === id);
-            
-            if(post) {
-                if(!post.isLiked) {
-                    post.likes++;
-                    post.isLiked = true;
+        // Bəyəni Düyməsi
+        function toggleLike(id) {
+            let db = JSON.parse(localStorage.getItem('matador_ultra_db') || '[]');
+            let p = db.find(x => x.id === id);
+            if(p) {
+                if(!p.hasLiked) {
+                    p.likes++;
+                    p.hasLiked = true;
                 } else {
-                    post.likes--;
-                    post.isLiked = false;
+                    p.likes--;
+                    p.hasLiked = false;
                 }
-                localStorage.setItem('mt_posts', JSON.stringify(posts));
-                loadFeed();
+                localStorage.setItem('matador_ultra_db', JSON.stringify(db));
+                refreshFeed();
             }
         }
 
-        window.onload = loadFeed;
+        // Şərh Yazmaq
+        function sendComment(id) {
+            const input = document.getElementById('inp-' + id);
+            if(!input.value) return;
+
+            let db = JSON.parse(localStorage.getItem('matador_ultra_db') || '[]');
+            let p = db.find(x => x.id === id);
+            if(p) {
+                p.comments.push(input.value);
+                localStorage.setItem('matador_ultra_db', JSON.stringify(db));
+                input.value = "";
+                refreshFeed();
+            }
+        }
     </script>
 </body>
 </html>
