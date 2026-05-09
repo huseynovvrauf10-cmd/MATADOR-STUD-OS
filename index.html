@@ -236,6 +236,29 @@ function ilanPaylas() {
   const auth = firebase.auth();
 
   console.log("Matador Sistemi Online! 🚀");
+// --- VERİLERİ OTOMATİK ÇEKİP EKRANA BASAN KISIM ---
+db.collection("ilanlar").orderBy("tarih", "desc").onSnapshot((querySnapshot) => {
+    const urunAkisi = document.getElementById("urun-akisi");
+    if (urunAkisi) {
+        urunAkisi.innerHTML = ""; 
+        querySnapshot.forEach((doc) => {
+            const ilan = doc.data();
+            const urunKutusu = `
+                <div style="background: #1a1a1a; border: 1px solid #333; border-radius: 15px; margin-bottom: 20px; padding: 15px;">
+                    <h4 style="margin: 0; color: #fff;">${ilan.ad}</h4>
+                    <p style="color: #ff003c; font-weight: bold; margin: 10px 0; font-size: 18px;">${ilan.fiyat} TL</p>
+                    <a href="https://wa.me/905XXXXXXXXX?text=${ilan.ad} ilanınız için yazıyorum" 
+                       style="display: block; text-align: center; background: #25d366; color: white; text-decoration: none; padding: 10px; border-radius: 8px; font-weight: bold;">
+                       WhatsApp ile Satın Al
+                    </a>
+                </div>
+            `;
+            urunAkisi.innerHTML += urunKutusu;
+        });
+    }
+});
+// ------------------------------------------------
+
 </script>
 
 
