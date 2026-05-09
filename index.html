@@ -103,59 +103,6 @@ function paylas() {
 <div id="urun-akisi" style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
     </div>
 
-<script>
-// Formu açıp kapatan fonksiyon
-function acKapaPanel() {
-    var x = document.getElementById("ilan-formu");
-    if (x.style.display === "none") {
-        x.style.display = "block";
-    } else {
-        x.style.display = "none";
-    }
-}
-
-// Yeni ilanı ekrana basan fonksiyon
-function ilanPaylas() {
-    var ad = document.getElementById("urun-adi").value;
-    var fiyat = document.getElementById("urun-fiyat").value;
-
-    if(ad == "" || fiyat == "") {
-        alert("Kanka boş bırakma, müşteriler neyi alacağını bilsin!");
-        return;
-    }
-
-    var urunKutusu = `
-        <div style="background: #1a1a1a; border: 1px solid #00f2ea; padding: 10px; border-radius: 10px;">
-            <div style="height: 100px; background: #333; border-radius: 5px; margin-bottom: 10px; display: flex; align-items: center; justify-content: center; font-size: 10px; color: #555;">GÖRSEL YÜKLENECEK</div>
-            <h4 style="margin: 0; color: #00f2ea;">${ad}</h4>
-            <p style="color: #ff003c; font-weight: bold;">${fiyat} AZN</p>
-            <button style="width: 100%; font-size: 12px; padding: 5px;">Satın Al / Mesaj At</button>
-        </div>
-    `;
-
-    document.getElementById("urun-akisi").innerHTML += urunKutusu;
-    
-    // Formu temizle ve kapat
-    document.getElementById("urun-adi").value = "";
-    document.getElementById("urun-fiyat").value = "";
-      // --- FIREBASE'E GÖNDERME KISMI ---
-    db.collection("ilanlar").add({
-        ad: ad,
-        fiyat: fiyat,
-        tarih: firebase.firestore.FieldValue.serverTimestamp()
-    })
-    .then(() => {
-        console.log("Veri buluta uçtu kanka! 🚀");
-    })
-    .catch((error) => {
-        console.error("Hata çıktı: ", error);
-    });
-    // --------------------------------
-
-    acKapaPanel();
-}
-    
-</script>
 
     <header class="flex justify-between items-center p-4 border-b border-gray-900 sticky top-0 bg-black z-50">
         <h1 class="text-2xl font-black italic text-red-600 tracking-tighter">MATADOR</h1>
@@ -211,56 +158,10 @@ function ilanPaylas() {
     <a href="profile.html" style="text-decoration: none; font-size: 20px;">👤</a>
 </div>
 
-<div style="height: 70px;"></div>
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
-
-<script>
-  // Matador'un Gerçek Kalbi
-  const firebaseConfig = {
-    apiKey: "AIzaSyAWZoeIDyTy_3AAQZkojD9VCD...", // Kendi anahtarını buraya tam yapıştır
-    authDomain: "matador-b1ecc.firebaseapp.com",
-    projectId: "matador-b1ecc",
-    storageBucket: "matador-b1ecc.firebasestorage.app",
-    messagingSenderId: "1065363097675",
-    appId: "1:1065363097675:web:4554d13f1da...",
-    measurementId: "G-KCLVT54MDQ"
-  };
-
-  // Firebase'i başlatıyoruz
-  if (!firebase.apps.length) {
-    firebase.initializeApp(firebaseConfig);
-  }
-  const db = firebase.firestore();
-  const auth = firebase.auth();
-
-  console.log("Matador Sistemi Online! 🚀");
-// --- VERİLERİ OTOMATİK ÇEKİP EKRANA BASAN KISIM ---
-db.collection("ilanlar").orderBy("tarih", "desc").onSnapshot((querySnapshot) => {
-    const urunAkisi = document.getElementById("urun-akisi");
-    if (urunAkisi) {
-        urunAkisi.innerHTML = ""; 
-        querySnapshot.forEach((doc) => {
-            const ilan = doc.data();
-            const urunKutusu = `
-                <div style="background: #1a1a1a; border: 1px solid #333; border-radius: 15px; margin-bottom: 20px; padding: 15px;">
-                    <h4 style="margin: 0; color: #fff;">${ilan.ad}</h4>
-                    <p style="color: #ff003c; font-weight: bold; margin: 10px 0; font-size: 18px;">${ilan.fiyat} TL</p>
-                    <a href="https://wa.me/905XXXXXXXXX?text=${ilan.ad} ilanınız için yazıyorum" 
-                       style="display: block; text-align: center; background: #25d366; color: white; text-decoration: none; padding: 10px; border-radius: 8px; font-weight: bold;">
-                       WhatsApp ile Satın Al
-                    </a>
-                </div>
-            `;
-            urunAkisi.innerHTML += urunKutusu;
-        });
-    }
-});
-// ------------------------------------------------
-
-</script>
-
+<div 
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+<script src="script.js"></script>
 
 </body>
 </html>
