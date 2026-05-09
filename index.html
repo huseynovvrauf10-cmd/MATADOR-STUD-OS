@@ -13,6 +13,56 @@
     </style>
 </head>
 <body>
+    <hr style="border: 1px solid #222; margin: 40px 0;">
+
+<div class="matador-header">
+    <h2>MATADOR FEED</h2>
+</div>
+
+<div style="background: #111; padding: 15px; border-radius: 10px; border: 1px solid #00f2ea; margin-bottom: 20px;">
+    <textarea id="post-text" placeholder="Ne düşünüyorsun kanka?" style="width: 100%; background: #000; color: #fff; border: 1px solid #333; padding: 10px;"></textarea>
+    
+    <input type="file" id="post-file" accept="image/*,video/*" style="margin-top: 10px; color: #00f2ea;">
+    
+    <button onclick="paylas()" style="margin-top: 10px; width: 100%; background: #00f2ea; color: #000; font-weight: bold;">PAYLAŞ</button>
+</div>
+
+<div id="feed-container">
+    </div>
+
+<script>
+function paylas() {
+    var text = document.getElementById("post-text").value;
+    var file = document.getElementById("post-file").files[0];
+    var feed = document.getElementById("feed-container");
+
+    if(text == "" && !file) {
+        alert("Boş paylaşım olmaz kanka!");
+        return;
+    }
+
+    // Gönderi Kartı Tasarımı
+    var postHTML = `
+        <div style="background: #111; border: 1px solid #333; margin-bottom: 20px; border-radius: 10px; overflow: hidden;">
+            <div style="padding: 10px; font-weight: bold; color: #ff003c;">@user123</div>
+            <div style="padding: 10px; color: #eee;">${text}</div>
+            <div id="media-preview" style="background: #222; min-height: 200px; display: flex; align-items: center; justify-content: center; color: #555;">
+                ${file ? "📷 Görsel/Video İşleniyor..." : "📝 Sadece Metin"}
+            </div>
+            <div style="padding: 10px; border-top: 1px solid #222; display: flex; justify-content: space-around;">
+                <span>❤️ Beğen</span>
+                <span>💬 Yorum Yap</span>
+                <span>✈️ Paylaş</span>
+            </div>
+        </div>
+    `;
+
+    feed.innerHTML = postHTML + feed.innerHTML;
+    document.getElementById("post-text").value = "";
+    document.getElementById("post-file").value = "";
+}
+</script>
+
 <div class="matador-header">
     <h1>MATADOR MARKETPLACE</h1>
     <p>Ürünlerini tüm dünyaya (veya mahalleye) göster!</p>
