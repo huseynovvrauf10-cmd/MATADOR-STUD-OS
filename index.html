@@ -97,6 +97,8 @@ function paylas() {
     <h3 style="color: #ff003c;">İlan Detayları</h3>
     <input type="text" id="urun-adi" placeholder="Ürün Adı..." style="width: 100%; padding: 10px; margin-bottom: 10px; background: #222; color: #fff; border: 1px solid #00f2ea;">
     <input type="number" id="urun-fiyat" placeholder="Fiyat (AZN)..." style="width: 100%; padding: 10px; margin-bottom: 10px; background: #222; color: #fff; border: 1px solid #00f2ea;">
+   <input type="file" id="urun-foto" accept="image/*" style="width: 100%; margin-bottom: 10px; background: #222; color: white; border: 1px solid #333; padding: 5px; border-radius: 5px;">
+
     <button onclick="ilanPaylas()" style="width: 100%; background: #ff003c; border: none; font-weight: bold;">YAYINLA</button>
 </div>
 
@@ -161,7 +163,11 @@ function paylas() {
 <div 
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
+
 <script src="script.js"></script>
+<script src="delete.js"></script>
+<script src="upload.js"></script>
 
 </body>
 </html>
