@@ -1,9 +1,11 @@
+/* MATADOR MARKETPLACE - GLOBAL STİLLER */
 body {
     background-color: #000;
     color: #00f2ea;
-    font-family: sans-serif;
+    font-family: 'Segoe UI', sans-serif;
     margin: 0;
     padding: 20px;
+    padding-bottom: 80px; /* Alt menü kapanmasın diye */
 }
 
 .matador-header {
@@ -11,26 +13,80 @@ body {
     padding-bottom: 10px;
     margin-bottom: 20px;
     text-shadow: 0 0 10px #00f2ea;
+    text-align: center;
 }
 
-button {
+/* İLAN FORMU */
+#ilan-formu {
     background: #111;
     border: 1px solid #ff003c;
-    color: white;
+    padding: 20px;
+    border-radius: 15px;
+    margin-bottom: 30px;
+}
+
+#ilan-formu input {
+    width: 100%;
+    margin-bottom: 10px;
     padding: 10px;
+    background: #222;
+    border: 1px solid #333;
+    color: white;
     border-radius: 5px;
-    cursor: pointer;
 }
 
-button:hover {
-    box-shadow: 0 0 10px #ff003c;
+/* İLAN KARTLARI (YENİ SİSTEM) */
+.ilan-kart {
+    background: #111;
+    border: 1px solid #333;
+    border-radius: 15px;
+    margin-bottom: 20px;
+    padding: 15px;
+    position: relative;
+    overflow: hidden;
 }
-<div style="position: fixed; bottom: 0; left: 0; width: 100%; background: #000; border-top: 1px solid #222; display: flex; justify-content: space-around; padding: 15px 0; z-index: 1000;">
-    <a href="index.html" style="text-decoration: none; font-size: 20px;">🏠</a>
-    <a href="explore.html" style="text-decoration: none; font-size: 20px;">🔍</a>
-    <a href="marketplace.html" style="text-decoration: none; font-size: 20px;">🛍️</a>
-    <a href="profile.html" style="text-decoration: none; font-size: 20px;">👤</a>
-</div>
 
-<div style="height: 70px;"></div>
+.ilan-img {
+    width: 100%;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    max-height: 250px;
+    object-fit: cover;
+}
 
+.fiyat-yazisi {
+    color: #ff003c;
+    font-weight: bold;
+    font-size: 1.3rem;
+    margin: 10px 0;
+}
+
+.wa-btn {
+    display: block;
+    text-align: center;
+    background: #25d366;
+    color: white;
+    padding: 12px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/* ALT NAVİGASYON MENÜSÜ */
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: #000;
+    border-top: 1px solid #222;
+    display: flex;
+    justify-content: space-around;
+    padding: 15px 0;
+    z-index: 1000;
+}
+
+.bottom-nav a {
+    text-decoration: none;
+    font-size: 24px;
+}
