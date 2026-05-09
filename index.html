@@ -138,8 +138,23 @@ function ilanPaylas() {
     // Formu temizle ve kapat
     document.getElementById("urun-adi").value = "";
     document.getElementById("urun-fiyat").value = "";
+      // --- FIREBASE'E GÖNDERME KISMI ---
+    db.collection("ilanlar").add({
+        ad: ad,
+        fiyat: fiyat,
+        tarih: firebase.firestore.FieldValue.serverTimestamp()
+    })
+    .then(() => {
+        console.log("Veri buluta uçtu kanka! 🚀");
+    })
+    .catch((error) => {
+        console.error("Hata çıktı: ", error);
+    });
+    // --------------------------------
+
     acKapaPanel();
 }
+    
 </script>
 
     <header class="flex justify-between items-center p-4 border-b border-gray-900 sticky top-0 bg-black z-50">
