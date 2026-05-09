@@ -13,6 +13,63 @@
     </style>
 </head>
 <body>
+<div class="matador-header">
+    <h1>MATADOR MARKETPLACE</h1>
+    <p>Ürünlerini tüm dünyaya (veya mahalleye) göster!</p>
+</div>
+
+<div style="text-align: center; margin-bottom: 20px;">
+    <button onclick="acKapaPanel()">+ Yeni İlan Oluştur</button>
+</div>
+
+<div id="ilan-formu" style="display:none; border: 2px dashed #ff003c; padding: 20px; margin-bottom: 30px; background: #111;">
+    <h3 style="color: #ff003c;">İlan Detayları</h3>
+    <input type="text" id="urun-adi" placeholder="Ürün Adı..." style="width: 100%; padding: 10px; margin-bottom: 10px; background: #222; color: #fff; border: 1px solid #00f2ea;">
+    <input type="number" id="urun-fiyat" placeholder="Fiyat (AZN)..." style="width: 100%; padding: 10px; margin-bottom: 10px; background: #222; color: #fff; border: 1px solid #00f2ea;">
+    <button onclick="ilanPaylas()" style="width: 100%; background: #ff003c; border: none; font-weight: bold;">YAYINLA</button>
+</div>
+
+<div id="urun-akisi" style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+    </div>
+
+<script>
+// Formu açıp kapatan fonksiyon
+function acKapaPanel() {
+    var x = document.getElementById("ilan-formu");
+    if (x.style.display === "none") {
+        x.style.display = "block";
+    } else {
+        x.style.display = "none";
+    }
+}
+
+// Yeni ilanı ekrana basan fonksiyon
+function ilanPaylas() {
+    var ad = document.getElementById("urun-adi").value;
+    var fiyat = document.getElementById("urun-fiyat").value;
+
+    if(ad == "" || fiyat == "") {
+        alert("Kanka boş bırakma, müşteriler neyi alacağını bilsin!");
+        return;
+    }
+
+    var urunKutusu = `
+        <div style="background: #1a1a1a; border: 1px solid #00f2ea; padding: 10px; border-radius: 10px;">
+            <div style="height: 100px; background: #333; border-radius: 5px; margin-bottom: 10px; display: flex; align-items: center; justify-content: center; font-size: 10px; color: #555;">GÖRSEL YÜKLENECEK</div>
+            <h4 style="margin: 0; color: #00f2ea;">${ad}</h4>
+            <p style="color: #ff003c; font-weight: bold;">${fiyat} AZN</p>
+            <button style="width: 100%; font-size: 12px; padding: 5px;">Satın Al / Mesaj At</button>
+        </div>
+    `;
+
+    document.getElementById("urun-akisi").innerHTML += urunKutusu;
+    
+    // Formu temizle ve kapat
+    document.getElementById("urun-adi").value = "";
+    document.getElementById("urun-fiyat").value = "";
+    acKapaPanel();
+}
+</script>
 
     <header class="flex justify-between items-center p-4 border-b border-gray-900 sticky top-0 bg-black z-50">
         <h1 class="text-2xl font-black italic text-red-600 tracking-tighter">MATADOR</h1>
