@@ -1,0 +1,28 @@
+body {
+    background-color: #000;
+    color: #00f2ea;
+    font-family: sans-serif;
+    margin: 0;
+    padding: 20px;
+}
+
+.matador-header {
+    border-bottom: 2px solid #ff003c;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+    text-shadow: 0 0 10px #00f2ea;
+}
+
+button {
+    background: #111;
+    border: 1px solid #ff003c;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    box-shadow: 0 0 10px #ff003c;
+}
+
